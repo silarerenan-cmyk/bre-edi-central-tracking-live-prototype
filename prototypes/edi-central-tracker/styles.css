@@ -1,0 +1,1174 @@
+/* =====================================================================
+   EDI Central Tracker — visual style matching BEES Order History reference
+   Hexa tokens drive colors / type / spacing; this file owns layout.
+   ===================================================================== */
+
+/* Page background — BEES light grey */
+body { background: #FAFAFA; }
+
+/* Hide the default Hexa topbar — we render our own BEES topbar */
+.hexa-topbar { display: none !important; }
+
+/* =====================================================================
+   BEES TOPBAR
+   ===================================================================== */
+.bees-topbar {
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--hexa-border-default);
+  position: sticky;
+  top: 0;
+  z-index: 60;
+}
+.bees-topbar-row {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 56px;
+  display: flex;
+  align-items: center;
+  gap: var(--hexa-space-lg);
+}
+.bees-topbar-row--primary { height: 64px; gap: var(--hexa-space-xl); }
+.bees-topbar-row--secondary { height: 56px; border-top: 1px solid var(--hexa-border-default); justify-content: space-between; }
+
+/* BEES wordmark — official PNG */
+.bees-logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+  height: 28px;
+}
+.bees-logo img { height: 100%; width: auto; display: block; }
+
+/* Center search bar */
+.bees-search {
+  flex: 1;
+  max-width: 480px;
+  display: flex;
+  align-items: center;
+  background: #F2F2F2;
+  border-radius: var(--hexa-radius-pill);
+  padding: 0 var(--hexa-space-2xs) 0 var(--hexa-space-md);
+  height: 40px;
+  gap: var(--hexa-space-sm);
+  position: relative;
+}
+.bees-search > hexa-icon { color: var(--hexa-fg-neutral-tertiary); width: 16px; height: 16px; }
+.bees-search input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font: inherit;
+  font-size: 14px;
+  color: var(--hexa-fg-neutral-primary);
+  height: 100%;
+}
+.bees-search input::placeholder { color: var(--hexa-fg-neutral-tertiary); }
+.bees-search-go {
+  width: 32px; height: 32px;
+  background: #111111;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.bees-search-go hexa-icon { width: 14px; height: 14px; }
+
+/* Account selector pill */
+.bees-account {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hexa-space-sm);
+  padding: 0 var(--hexa-space-lg);
+  height: 40px;
+  border: 1px solid var(--hexa-border-default);
+  border-radius: var(--hexa-radius-pill);
+  font-size: 13px;
+  color: var(--hexa-fg-neutral-primary);
+  cursor: pointer;
+  background: var(--hexa-surface-primary);
+  flex-shrink: 0;
+}
+.bees-account:hover { border-color: var(--hexa-neutral-400); }
+.bees-account hexa-icon { width: 16px; height: 16px; color: var(--hexa-fg-neutral-secondary); }
+.bees-account-id { font-weight: 600; }
+.bees-account-name { color: var(--hexa-fg-neutral-secondary); }
+
+/* Right-side icon buttons */
+.bees-topbar-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hexa-space-2xs);
+  flex-shrink: 0;
+}
+.bees-icon-btn {
+  width: 40px; height: 40px;
+  border: none; background: transparent;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--hexa-fg-neutral-primary);
+  position: relative;
+}
+.bees-icon-btn:hover { background: #F2F2F2; }
+.bees-icon-btn hexa-icon { width: 20px; height: 20px; }
+.bees-icon-badge {
+  position: absolute;
+  top: 4px; right: 4px;
+  min-width: 16px; height: 16px;
+  background: #2D7DC1;       /* matches the small blue badge in reference */
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 0 4px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 2px solid #FFFFFF;
+  box-sizing: content-box;
+}
+
+/* Secondary nav row */
+.bees-nav-left, .bees-nav-right {
+  display: flex; align-items: center;
+  gap: var(--hexa-space-xl);
+  height: 100%;
+}
+.bees-nav-link {
+  display: inline-flex; align-items: center;
+  gap: var(--hexa-space-2xs);
+  height: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--hexa-fg-neutral-primary);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding: 0 2px;
+  position: relative;
+}
+.bees-nav-link hexa-icon { width: 14px; height: 14px; color: var(--hexa-fg-neutral-tertiary); }
+.bees-nav-link:hover { color: #111111; }
+.bees-nav-link--active {
+  border-bottom-color: var(--hexa-brand-500);
+  color: #111111;
+  font-weight: 600;
+}
+
+/* =====================================================================
+   PAGE CONTENT
+   ===================================================================== */
+.app-shell {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--hexa-space-xl) 56px var(--hexa-space-3xl);
+}
+
+.page-title {
+  font-family: var(--hexa-font-header);
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--hexa-space-md);
+}
+
+/* Plain text tabs with active underline */
+.page-tabs {
+  display: flex;
+  gap: var(--hexa-space-2xl);
+  border-bottom: 1px solid var(--hexa-border-default);
+  margin-bottom: var(--hexa-space-lg);
+}
+.page-tab {
+  background: none;
+  border: none;
+  padding: var(--hexa-space-sm) 0;
+  margin-bottom: -1px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--hexa-fg-neutral-secondary);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+.page-tab:hover { color: var(--hexa-fg-neutral-primary); }
+.page-tab[aria-selected="true"] {
+  color: #111111;
+  border-bottom-color: #111111;
+  font-weight: 600;
+}
+
+/* =====================================================================
+   FILTER (collapsed by default)
+   ===================================================================== */
+.filter-block { margin-bottom: var(--hexa-space-lg); }
+.filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hexa-space-sm);
+  background: var(--hexa-surface-primary);
+  border: 1px solid var(--hexa-border-default);
+  border-radius: var(--hexa-radius-pill);
+  padding: 0 var(--hexa-space-lg);
+  height: 36px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--hexa-fg-neutral-primary);
+  cursor: pointer;
+}
+.filter-toggle:hover { border-color: var(--hexa-neutral-400); }
+.filter-toggle hexa-icon { width: 16px; height: 16px; }
+.filter-toggle .caret { transition: transform var(--hexa-duration-fast) var(--hexa-easing); }
+.filter-toggle[aria-expanded="true"] .caret { transform: rotate(180deg); }
+
+.filters {
+  background: var(--hexa-surface-primary);
+  border: 1px solid var(--hexa-border-default);
+  border-radius: var(--hexa-radius-lg);
+  padding: var(--hexa-space-lg);
+  margin-top: var(--hexa-space-md);
+  display: grid;
+  /* Two explicit rows of three columns each — guarantees Period gets enough
+     room for both date inputs without forcing other fields to overflow. */
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--hexa-space-md) var(--hexa-space-lg);
+  align-items: end;
+}
+@media (max-width: 900px) { .filters { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .filters { grid-template-columns: 1fr; } }
+.filters[hidden] { display: none; }
+.filters .filter-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--hexa-space-md);
+  border-top: 1px solid var(--hexa-border-default);
+  padding-top: var(--hexa-space-md);
+}
+.filters .filter-actions .left {
+  display: flex; gap: var(--hexa-space-sm); align-items: center; flex-wrap: wrap;
+}
+
+/* Multi-select dropdowns.
+   The panel uses position: fixed (positioned by JS) so it ALWAYS sits above
+   sibling cells regardless of grid-cell stacking contexts — that's why the
+   Status panel was previously rendering below the Period inputs. */
+.dropdown { position: relative; }
+.dropdown-trigger {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--hexa-space-sm);
+  background: var(--hexa-surface-primary);
+  border: 1px solid var(--hexa-border-input);
+  border-radius: var(--hexa-radius-pill);
+  padding: var(--hexa-space-sm) var(--hexa-space-lg);
+  font: inherit;
+  font-size: 14px;
+  color: var(--hexa-fg-neutral-primary);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  min-height: 40px;
+}
+.dropdown-trigger:hover { border-color: var(--hexa-neutral-900); }
+.dropdown-trigger .placeholder { color: var(--hexa-fg-neutral-tertiary); }
+.dropdown-panel {
+  position: fixed;
+  background: var(--hexa-surface-primary);
+  border: 1px solid var(--hexa-border-default);
+  border-radius: var(--hexa-radius-lg);
+  box-shadow: var(--hexa-elevation-neutral-strong);
+  padding: var(--hexa-space-sm);
+  z-index: 1000;
+  max-height: 360px;
+  overflow: auto;
+  display: none;
+  min-width: 240px;
+}
+.dropdown.is-open .dropdown-panel { display: block; }
+.dropdown-panel .opt {
+  display: flex; align-items: center; gap: var(--hexa-space-sm);
+  padding: var(--hexa-space-sm) var(--hexa-space-md);
+  border-radius: var(--hexa-radius-md);
+  cursor: pointer;
+  font-size: 14px;
+}
+.dropdown-panel .opt:hover { background: var(--hexa-surface-secondary); }
+.dropdown-panel .search {
+  position: sticky; top: calc(-1 * var(--hexa-space-sm));
+  margin: calc(-1 * var(--hexa-space-sm)) calc(-1 * var(--hexa-space-sm)) var(--hexa-space-xs);
+  padding: var(--hexa-space-sm);
+  background: var(--hexa-surface-primary);
+  border-bottom: 1px solid var(--hexa-border-default);
+  z-index: 1;
+}
+
+.period-row { display: flex; gap: var(--hexa-space-xs); align-items: center; }
+.period-row .hexa-input-wrap { flex: 1; }
+
+/* Pill all the form controls inside the filter panel for visual consistency
+   with the Account, Filter button, and dropdown triggers. */
+.filters .hexa-input-wrap,
+.filters .hexa-select {
+  border-radius: var(--hexa-radius-pill);
+  padding-left: var(--hexa-space-lg);
+  padding-right: var(--hexa-space-lg);
+}
+.filters .hexa-input-wrap > hexa-icon { margin-left: -4px; }
+
+#applyBtn { position: relative; }
+#applyBtn.is-dirty::after {
+  content: ""; position: absolute; top: 4px; right: 4px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--hexa-status-error);
+  box-shadow: 0 0 0 2px var(--hexa-surface-primary);
+}
+
+/* =====================================================================
+   SUMMARY CARDS — like the reference's "In progress / Needs attention / Delivered"
+   ===================================================================== */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--hexa-space-sm);
+  margin-bottom: var(--hexa-space-xl);
+}
+/* Keep all five cards on a single row down to a tight desktop width.
+   They only stack on tablets (where horizontal real estate truly runs out). */
+@media (max-width: 720px) { .summary-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 420px) { .summary-cards { grid-template-columns: 1fr; } }
+
+.summary-card {
+  background: var(--hexa-surface-primary);
+  border: 1px solid var(--hexa-border-default);
+  border-radius: var(--hexa-radius-lg);
+  padding: var(--hexa-space-md) var(--hexa-space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--hexa-space-2xs);
+  cursor: default;
+  position: relative;
+  text-align: left;
+  font: inherit;
+  min-width: 0;             /* allow truncation inside */
+}
+.summary-card:hover { border-color: var(--hexa-neutral-400); }
+.summary-card.is-active { border-color: #111111; box-shadow: 0 0 0 1px #111111; }
+
+.summary-card .header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--hexa-space-xs);
+  min-width: 0;
+}
+.summary-card .label {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px;
+  color: var(--hexa-fg-neutral-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.summary-card .label .info-icon { width: 12px; height: 12px; color: var(--hexa-fg-neutral-tertiary); flex-shrink: 0; }
+.summary-card .label .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.summary-card .label .label-text {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0;
+}
+.summary-card .filter-link {
+  font-size: 12px;
+  color: var(--hexa-status-info);
+  font-weight: 500;
+  text-decoration: none;
+  background: none; border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+.summary-card .filter-link:hover { text-decoration: underline; }
+.summary-card .filter-link.is-active { color: var(--hexa-fg-neutral-primary); font-weight: 600; }
+
+/* Stack the percentage and the count vertically — keeps each card narrow
+   enough that all five fit on one line at typical desktop widths. */
+.summary-card .value-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  margin-top: var(--hexa-space-2xs);
+}
+.summary-card .pct {
+  font-family: var(--hexa-font-header);
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 600;
+  color: var(--hexa-fg-neutral-primary);
+}
+.summary-card .of {
+  font-size: 12px;
+  color: var(--hexa-fg-neutral-secondary);
+  line-height: 16px;
+}
+.summary-card .dot-success { background: var(--hexa-status-success); }
+.summary-card .dot-warning { background: var(--hexa-status-warning); }
+.summary-card .dot-error   { background: var(--hexa-status-error); }
+.summary-card .dot-info    { background: var(--hexa-status-info); }
+.summary-card .dot-blocked { background: #7B3FBE; }
+
+/* =====================================================================
+   STATUS PILLS — small, pastel, dot-prefixed (match reference)
+   ===================================================================== */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px var(--hexa-space-md);
+  border-radius: var(--hexa-radius-pill);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  background: #F2F2F2;
+  color: var(--hexa-fg-neutral-primary);
+  white-space: nowrap;        /* Pills must always sit on a single line */
+  flex-shrink: 0;
+  max-width: 100%;
+}
+.status-pill::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--hexa-fg-neutral-tertiary);
+  flex-shrink: 0;
+}
+.status-pill.is-success { background: #E6F4EA; color: #1E6A33; }
+.status-pill.is-success::before { background: #2D7D45; }
+.status-pill.is-warning { background: #FFF4E0; color: #8A4F00; }
+.status-pill.is-warning::before { background: #F57C00; }
+.status-pill.is-error   { background: #FDECEC; color: #B0211B; }
+.status-pill.is-error::before { background: #D32F2F; }
+.status-pill.is-info    { background: #E6F0FB; color: #14507A; }
+.status-pill.is-info::before { background: #2D7DC1; }
+.status-pill.is-blocked { background: #EFE7F7; color: #5A2E8E; }   /* purple-violet for on-hold */
+.status-pill.is-blocked::before { background: #7B3FBE; }
+.status-pill.is-neutral { background: #F2F2F2; color: #555555; }
+.status-pill.is-neutral::before { background: #888888; }
+
+/* =====================================================================
+   ORDER LIST — matches the reference list-row pattern
+   ===================================================================== */
+.result-bar { margin-bottom: var(--hexa-space-md); }
+.result-bar .chip-row { display: flex; gap: var(--hexa-space-xs); flex-wrap: wrap; align-items: center; }
+.result-bar:not([hidden]) + #tableWrap { margin-top: 0; }
+
+/* =====================================================================
+   ORDERS TABLE
+   ---------------------------------------------------------------------
+   Real table-like layout: a sticky header row above single-line data
+   rows, all sharing the same grid template. The .order-table wrapper
+   becomes horizontally scrollable when the viewport is narrower than
+   the row's natural width — we never wrap a row to multiple lines.
+   ===================================================================== */
+.order-table {
+  background: var(--hexa-surface-primary);
+  border: 1px solid var(--hexa-border-default);
+  border-radius: var(--hexa-radius-lg) var(--hexa-radius-lg) 0 0;
+  overflow-x: auto;     /* fall back to horizontal scroll on narrow viewports */
+  overflow-y: hidden;
+}
+.order-list {
+  /* Force a min-width so the grid never collapses below the smallest
+     usable layout. Below this width the .order-table scrolls instead. */
+  min-width: 1180px;
+}
+
+.order-row {
+  display: grid;
+  /* Status pill is wide enough for "Accepted with alerts" without
+     wrapping. Date column fits the full timestamp. PO# and BEES order #
+     are predictable monospace numerics. Account and Vendor are fluid. */
+  grid-template-columns:
+    32px                       /* select */
+    180px                      /* status pill */
+    170px                      /* receive date */
+    minmax(220px, 1.6fr)       /* account / POC */
+    minmax(140px, 1fr)         /* vendor */
+    140px                      /* PO number */
+    180px                      /* BEES order number */
+    96px;                      /* row actions (info + reprocess) */
+  gap: var(--hexa-space-lg);
+  align-items: center;
+  padding: var(--hexa-space-md) var(--hexa-space-xl);
+  border-bottom: 1px solid var(--hexa-border-default);
+  cursor: pointer;
+  transition: background-color var(--hexa-duration-fast) var(--hexa-easing);
+}
+.order-row:last-child { border-bottom: none; }
+.order-row:hover { background: #FAFAFA; }
+
+/* Single-line data cell. No stacked label, no wrapping — overflow is
+   ellipsised so each row stays exactly one line tall. */
+.order-row .cell {
+  font-size: 14px;
+  color: var(--hexa-fg-neutral-primary);
+  font-weight: 500;
+  line-height: 20px;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.order-row .cell.mono { font-family: ui-monospace, Menlo, monospace; font-size: 13px; }
+.order-row .cell .muted { color: var(--hexa-fg-neutral-tertiary); }
+.order-row .cell-status { display: flex; align-items: center; }
+
+.order-row .cell-account {
+  display: flex;
+  align-items: baseline;
+  gap: var(--hexa-space-xs);
+  min-width: 0;
+}
+.order-row .cell-account-name {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.order-row .cell-account-id {
+  flex: 0 0 auto;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 12px;
+  color: var(--hexa-fg-neutral-tertiary);
+  font-weight: 400;
+}
+
+/* Header row — sticky inside the scroll container, same grid as data rows. */
+.order-row--head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #F7F7F7;
+  cursor: default;
+  padding-top: var(--hexa-space-sm);
+  padding-bottom: var(--hexa-space-sm);
+  border-bottom: 1px solid var(--hexa-border-default);
+}
+.order-row--head:hover { background: #F7F7F7; }
+.order-row--head .cell {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--hexa-fg-neutral-tertiary);
+  font-weight: 600;
+}
+.order-row--head .cell-select--head { width: 24px; height: 24px; }
+
+@keyframes hexa-row-flash { from { background: rgba(255, 192, 0, 0.20); } to { background: transparent; } }
+.order-row.flash { animation: hexa-row-flash 1.6s ease-out; }
+
+/* =====================================================================
+   PAGINATION — compact, right-aligned (like reference)
+   ===================================================================== */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--hexa-space-xl);
+  padding: var(--hexa-space-md) var(--hexa-space-xl);
+  background: var(--hexa-surface-primary);
+  border: 1px solid var(--hexa-border-default);
+  border-top: none;
+  border-radius: 0 0 var(--hexa-radius-lg) var(--hexa-radius-lg);
+  margin-bottom: var(--hexa-space-3xl);
+  font-size: 13px;
+  color: var(--hexa-fg-neutral-secondary);
+}
+.pagination .meta { font-size: 13px; }
+.pagination .page-size { display: flex; gap: var(--hexa-space-sm); align-items: center; }
+.pagination .page-size select { width: auto; min-width: 90px; height: 32px; font-size: 13px; padding: 0 24px 0 var(--hexa-space-sm); }
+.pagination .pages { display: flex; gap: var(--hexa-space-2xs); align-items: center; }
+.page-btn {
+  min-width: 28px; height: 28px;
+  padding: 0 var(--hexa-space-2xs);
+  background: var(--hexa-surface-primary);
+  border: 1px solid var(--hexa-border-default);
+  border-radius: 50%;
+  font: inherit; font-size: 13px;
+  color: var(--hexa-fg-neutral-primary);
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.page-btn:hover:not(:disabled) { background: #F5F5F5; }
+.page-btn:disabled { color: var(--hexa-fg-neutral-tertiary); cursor: not-allowed; }
+.page-btn.is-current { background: #111111; color: #FFFFFF; border-color: #111111; font-weight: 600; }
+.page-btn hexa-icon { width: 14px; height: 14px; }
+.page-ellipsis { padding: 0 var(--hexa-space-2xs); color: var(--hexa-fg-neutral-tertiary); }
+
+/* =====================================================================
+   DRAWER (kept from previous iteration, refined sizing)
+   ===================================================================== */
+.drawer-scrim {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.30);
+  z-index: 200;
+  animation: hexa-fade-in var(--hexa-duration-fast) var(--hexa-easing);
+}
+@keyframes hexa-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hexa-slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+.order-drawer {
+  position: fixed; top: 0; right: 0;
+  height: 100vh;
+  width: min(560px, 100vw);
+  background: var(--hexa-surface-primary);
+  border-left: 1px solid var(--hexa-border-default);
+  box-shadow: var(--hexa-elevation-neutral-strong);
+  z-index: 210;
+  display: flex; flex-direction: column;
+  animation: hexa-slide-in var(--hexa-duration-base) var(--hexa-easing);
+}
+.order-drawer[hidden] { display: none; }
+.order-drawer header {
+  padding: var(--hexa-space-lg) var(--hexa-space-xl);
+  border-bottom: 1px solid var(--hexa-border-default);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.order-drawer .body { padding: var(--hexa-space-xl); overflow-y: auto; flex: 1; }
+.order-drawer .body .section { margin-bottom: var(--hexa-space-xl); }
+.order-drawer .body .section h4 { margin: 0 0 var(--hexa-space-sm); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--hexa-fg-neutral-tertiary); }
+.order-drawer .kv { display: grid; grid-template-columns: 140px 1fr; gap: var(--hexa-space-xs) var(--hexa-space-md); font-size: 14px; }
+.order-drawer .kv dt { color: var(--hexa-fg-neutral-tertiary); }
+.order-drawer .kv dd { margin: 0; color: var(--hexa-fg-neutral-primary); font-weight: 500; }
+.order-drawer footer {
+  padding: var(--hexa-space-md) var(--hexa-space-xl);
+  border-top: 1px solid var(--hexa-border-default);
+  display: flex; justify-content: flex-end; gap: var(--hexa-space-sm);
+}
+
+/* Item-level placeholder */
+.placeholder-state {
+  border: 1px dashed var(--hexa-border-default);
+  border-radius: var(--hexa-radius-lg);
+  padding: var(--hexa-space-3xl) var(--hexa-space-xl);
+  text-align: center;
+  background: var(--hexa-surface-primary);
+}
+
+/* =====================================================================
+   BEES FOOTER
+   ===================================================================== */
+.bees-footer {
+  background: var(--hexa-surface-primary);
+  border-top: 1px solid var(--hexa-border-default);
+  padding: var(--hexa-space-3xl) 56px var(--hexa-space-xl);
+}
+.bees-footer-cols {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--hexa-space-2xl);
+  padding-bottom: var(--hexa-space-2xl);
+  border-bottom: 1px solid var(--hexa-border-default);
+}
+@media (max-width: 800px) { .bees-footer-cols { grid-template-columns: 1fr; } }
+
+.bees-footer-cols h4 {
+  margin: 0 0 var(--hexa-space-md);
+  font-family: var(--hexa-font-header);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--hexa-fg-neutral-primary);
+}
+.bees-footer-cols a, .bees-footer-static {
+  display: block;
+  font-size: 14px;
+  color: var(--hexa-fg-neutral-secondary);
+  text-decoration: none;
+  margin-bottom: var(--hexa-space-sm);
+}
+.bees-footer-cols a:hover { color: #111111; text-decoration: underline; }
+
+.bees-footer-brand {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-top: var(--hexa-space-2xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--hexa-space-sm);
+}
+.bees-footer-logo {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+.bees-footer-copy {
+  margin: 0;
+  font-size: 12px;
+  color: var(--hexa-fg-neutral-secondary);
+  text-align: center;
+  line-height: 1.6;
+}
+.bees-footer-cookie {
+  font-size: 13px;
+  color: var(--hexa-fg-neutral-secondary);
+  text-decoration: none;
+  margin-top: var(--hexa-space-md);
+}
+.bees-footer-cookie:hover { color: #111111; text-decoration: underline; }
+
+/* =====================================================================
+   ORDER DETAILS PAGE — BEES "Order details" pattern.
+   The title band uses the same background as the rest of the page so
+   the heading sits on a continuous neutral surface (no dark contrast).
+   ===================================================================== */
+.order-details-band {
+  background: transparent;
+  color: var(--hexa-fg-neutral-primary);
+  padding: 0 0 var(--hexa-space-xl);
+  margin-bottom: var(--hexa-space-md);
+}
+.order-details-band-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.order-details-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--hexa-space-xs);
+  font-size: 13px;
+  color: var(--hexa-fg-neutral-secondary);
+  margin-bottom: var(--hexa-space-md);
+  flex-wrap: wrap;
+}
+.order-details-breadcrumb .crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--hexa-fg-neutral-secondary);
+  text-decoration: none;
+  font-weight: 400;
+  padding: 2px 0;
+}
+.order-details-breadcrumb .crumb:hover { color: var(--hexa-fg-neutral-primary); }
+.order-details-breadcrumb .crumb--icon hexa-icon { width: 14px; height: 14px; }
+.order-details-breadcrumb .crumb--current {
+  color: var(--hexa-fg-neutral-primary);
+  font-weight: 600;
+}
+.order-details-breadcrumb .crumb-sep {
+  width: 12px; height: 12px;
+  color: var(--hexa-fg-neutral-tertiary);
+}
+
+.order-details-band-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--hexa-space-lg);
+  flex-wrap: wrap;
+}
+.order-details-title {
+  font-family: var(--hexa-font-header);
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--hexa-fg-neutral-primary);
+}
+.order-details-band-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--hexa-space-sm);
+}
+/* Action buttons on the title band — sit on a light background, so
+   they use the standard dark-on-light styling instead of inverse. */
+.band-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hexa-space-xs);
+  height: 40px;
+  padding: 0 var(--hexa-space-lg);
+  border-radius: var(--hexa-radius-pill);
+  font-family: var(--hexa-font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color var(--hexa-duration-fast) var(--hexa-easing),
+              border-color var(--hexa-duration-fast) var(--hexa-easing);
+}
+.band-btn hexa-icon { width: 16px; height: 16px; }
+.band-btn--ghost {
+  background: var(--hexa-surface-primary);
+  color: var(--hexa-fg-neutral-primary);
+  border-color: var(--hexa-border-default);
+}
+.band-btn--ghost:hover { background: #F5F5F5; border-color: var(--hexa-neutral-400); }
+.band-btn--primary {
+  background: #1A1A1A;
+  color: #FFFFFF;
+}
+.band-btn--primary:hover { background: #333333; }
+.band-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.order-details-body {
+  /* The body sits inside the normal app-shell padding flow (band has
+     already broken out and put us back at the natural content edge). */
+}
+
+/* Order facts card — appears immediately under the band */
+.order-details-card {
+  background: var(--hexa-surface-primary);
+  border: 1px solid var(--hexa-border-default);
+  border-radius: var(--hexa-radius-lg);
+  padding: var(--hexa-space-xl);
+  margin-bottom: var(--hexa-space-xl);
+}
+.order-details-status {
+  display: flex;
+  align-items: center;
+  gap: var(--hexa-space-md);
+  margin-bottom: var(--hexa-space-lg);
+  flex-wrap: wrap;
+}
+.order-details-reason {
+  font-size: 13px;
+  color: var(--hexa-fg-neutral-secondary);
+  font-style: italic;
+}
+.order-details-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--hexa-space-lg);
+  margin: 0;
+}
+.order-details-grid > div { min-width: 0; }
+.order-details-grid dt {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--hexa-fg-neutral-tertiary);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.order-details-grid dd {
+  margin: 0;
+  font-size: 14px;
+  color: var(--hexa-fg-neutral-primary);
+  line-height: 18px;
+  overflow-wrap: anywhere;
+}
+.order-details-grid .mono { font-family: ui-monospace, Menlo, monospace; }
+@media (max-width: 1100px) { .order-details-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px)  { .order-details-grid { grid-template-columns: 1fr; } }
+
+.item-row-issue-text { font-size: 13px; line-height: 18px; }
+
+/* =====================================================================
+   BULK ACTIONS BAR — sits above the order list when reprocessable orders
+   are present and/or selections exist. Sticky-feel without actually
+   sticking, so it stays visually anchored to the list.
+   ===================================================================== */
+.bulk-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--hexa-space-lg);
+  background: var(--hexa-surface-primary);
+  border: 1px solid var(--hexa-border-default);
+  border-radius: var(--hexa-radius-lg);
+  padding: var(--hexa-space-sm) var(--hexa-space-lg);
+  margin-bottom: var(--hexa-space-md);
+  flex-wrap: wrap;
+}
+.bulk-bar[hidden] { display: none; }
+
+.bulk-select-all {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hexa-space-sm);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--hexa-fg-neutral-primary);
+  cursor: pointer;
+  user-select: none;
+}
+.bulk-select-all input[type="checkbox"] {
+  width: 18px; height: 18px;
+  accent-color: #111111;
+  cursor: pointer;
+}
+.bulk-select-all input[type="checkbox"]:disabled { cursor: not-allowed; }
+
+.bulk-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--hexa-space-md);
+  flex-wrap: wrap;
+}
+.bulk-count {
+  font-size: 13px;
+  color: var(--hexa-fg-neutral-secondary);
+  font-weight: 500;
+}
+
+/* =====================================================================
+   ORDER ROW — extended for checkbox column and inline actions.
+   New grid: [select] [status] [date] [account] [vendor] [po#] [actions]
+   ===================================================================== */
+.order-row.is-selected { background: #FFFAEB; }
+.order-row.is-selected:hover { background: #FFF4D6; }
+
+.cell-select {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; height: 24px;
+  cursor: pointer;
+}
+.cell-select input[type="checkbox"] {
+  width: 18px; height: 18px;
+  accent-color: #111111;
+  cursor: pointer;
+}
+.cell-select--disabled {
+  cursor: default;
+  /* Render a muted placeholder dash so the checkbox column reads as "intentionally empty" */
+  position: relative;
+}
+.cell-select--disabled::after {
+  content: "";
+  width: 12px; height: 2px;
+  background: var(--hexa-border-default);
+  border-radius: 1px;
+}
+
+.row-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--hexa-space-2xs);
+}
+.row-action {
+  width: 32px; height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--hexa-surface-primary);
+  border: 1px solid var(--hexa-border-default);
+  color: var(--hexa-fg-neutral-primary);
+  cursor: pointer;
+  transition: background-color var(--hexa-duration-fast) var(--hexa-easing),
+              border-color var(--hexa-duration-fast) var(--hexa-easing);
+}
+.row-action:hover { background: #F5F5F5; border-color: var(--hexa-neutral-400); }
+.row-action hexa-icon { width: 16px; height: 16px; }
+.row-action--primary { background: #111111; color: #FFFFFF; border-color: #111111; }
+.row-action--primary:hover { background: #333333; border-color: #333333; }
+.row-action:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* =====================================================================
+   ITEM-LEVEL PAGE — header, summary chips, line-item rows
+   ===================================================================== */
+.item-summary-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hexa-space-sm);
+  margin-bottom: var(--hexa-space-lg);
+}
+.item-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hexa-space-xs);
+  background: var(--hexa-surface-primary);
+  border: 1px solid var(--hexa-border-default);
+  border-radius: var(--hexa-radius-pill);
+  padding: 6px var(--hexa-space-md);
+  font-size: 13px;
+}
+.item-stat-num { font-weight: 600; color: var(--hexa-fg-neutral-primary); }
+.item-stat-label { color: var(--hexa-fg-neutral-secondary); }
+.item-stat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.item-stat-dot.dot-success { background: var(--hexa-status-success); }
+.item-stat-dot.dot-warning { background: var(--hexa-status-warning); }
+.item-stat-dot.dot-error   { background: var(--hexa-status-error); }
+.item-stat-dot.dot-info    { background: var(--hexa-status-info); }
+.item-stat-dot.dot-blocked { background: #7B3FBE; }
+
+.item-list {
+  background: var(--hexa-surface-primary);
+  border: 1px solid var(--hexa-border-default);
+  border-radius: var(--hexa-radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--hexa-space-3xl);
+}
+.item-row {
+  border-bottom: 1px solid var(--hexa-border-default);
+  padding: var(--hexa-space-lg) var(--hexa-space-xl);
+}
+.item-row:last-child { border-bottom: none; }
+
+/* List header — sits above the line items, mirrors the BEES "Products"
+   section title pattern. */
+.item-list-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--hexa-space-md);
+}
+.item-list-title {
+  font-family: var(--hexa-font-header);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--hexa-fg-neutral-primary);
+}
+.item-list-count {
+  font-size: 13px;
+  color: var(--hexa-fg-neutral-tertiary);
+}
+
+/* Main row layout — thumbnail | identity | metrics, on a single line at
+   desktop. The identity column carries the line number, status pill,
+   product name, and SKU metadata stacked vertically. */
+.item-row-main {
+  display: grid;
+  grid-template-columns:
+    56px                              /* thumbnail */
+    minmax(220px, 2fr)                /* identity */
+    minmax(360px, 2.4fr);             /* metrics */
+  gap: var(--hexa-space-lg);
+  align-items: center;
+}
+
+.item-thumb {
+  width: 56px; height: 56px;
+  border-radius: var(--hexa-radius-md);
+  background: linear-gradient(135deg, #F5EFE0 0%, #E8DDC0 100%);
+  color: #6A5A2E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--hexa-font-header);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+.item-row--warning .item-thumb { background: linear-gradient(135deg, #FFF4E0 0%, #FFE0B2 100%); color: #8A4F00; }
+.item-row--blocked .item-thumb { background: linear-gradient(135deg, #EFE7F7 0%, #D6C5EC 100%); color: #5A2E8E; }
+.item-row--error   .item-thumb { background: linear-gradient(135deg, #FDECEC 0%, #F5C7C5 100%); color: #B0211B; }
+.item-row--info    .item-thumb { background: linear-gradient(135deg, #E0F0FF 0%, #B8DCF8 100%); color: #1F5BA8; }
+
+.item-identity { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.item-identity-top {
+  display: flex; align-items: center; gap: var(--hexa-space-sm);
+}
+.item-line-num {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--hexa-fg-neutral-tertiary);
+  font-weight: 600;
+}
+.item-name-main {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--hexa-fg-neutral-primary);
+  line-height: 20px;
+}
+.item-name-meta {
+  font-size: 12px;
+  color: var(--hexa-fg-neutral-tertiary);
+  font-family: ui-monospace, Menlo, monospace;
+}
+
+/* Metrics row — three side-by-side metrics. When a metric diverges
+   (Requested → Delivered), the value cell expands inline to show both
+   numbers separated by an arrow on a single line. */
+.item-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.4fr;
+  gap: var(--hexa-space-md);
+  min-width: 0;
+}
+.item-metric { min-width: 0; }
+.item-metric-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--hexa-fg-neutral-tertiary);
+  font-weight: 600;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.item-metric-value {
+  font-size: 14px;
+  color: var(--hexa-fg-neutral-primary);
+  font-weight: 500;
+  line-height: 18px;
+}
+.item-metric.is-adjusted .item-metric-value {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+}
+.item-metric-was {
+  text-decoration: line-through;
+  color: var(--hexa-fg-neutral-tertiary);
+  font-size: 12px;
+  font-weight: 400;
+}
+.item-metric-arrow {
+  color: var(--hexa-fg-neutral-tertiary);
+  font-size: 12px;
+}
+.item-metric-now {
+  color: #8A4F00;
+  font-weight: 600;
+  background: #FFF4E0;
+  padding: 1px 6px;
+  border-radius: var(--hexa-radius-sm);
+}
+
+/* Inline issue note. Sits below the main row, tinted to match status. */
+.item-row-issue {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--hexa-space-sm);
+  margin-top: var(--hexa-space-md);
+  margin-left: 72px;     /* aligns under identity column (thumbnail width + gap) */
+  padding: var(--hexa-space-sm) var(--hexa-space-md);
+  border-radius: var(--hexa-radius-md);
+  font-size: 13px;
+  color: var(--hexa-fg-neutral-primary);
+  background: #FAFAFA;
+}
+.item-row-issue hexa-icon { width: 16px; height: 16px; margin-top: 1px; flex-shrink: 0; }
+.item-row--warning .item-row-issue { background: #FFF4E0; color: #8A4F00; }
+.item-row--blocked .item-row-issue { background: #EFE7F7; color: #5A2E8E; }
+.item-row--error   .item-row-issue { background: #FDECEC; color: #B0211B; }
+
+@media (max-width: 1100px) {
+  .item-row-main {
+    grid-template-columns: 48px 1fr;
+  }
+  .item-row-main .item-metrics {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr 1.2fr;
+  }
+  .item-row-issue { margin-left: 0; }
+  .item-thumb { width: 48px; height: 48px; }
+}
+@media (max-width: 600px) {
+  .item-row-main .item-metrics { grid-template-columns: 1fr; }
+}

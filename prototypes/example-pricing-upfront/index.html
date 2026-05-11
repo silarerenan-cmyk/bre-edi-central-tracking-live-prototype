@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pricing Upfront — Example</title>
+  <link rel="stylesheet" href="../_shared/hexa-tokens.css" />
+  <link rel="stylesheet" href="../_shared/hexa-components.css" />
+  <script src="../_shared/hexa.js" defer></script>
+  <script
+    src="../_shared/hypothesis-tracker.js"
+    data-prototype-id="example-pricing-upfront"
+    data-hypothesis="Showing the price on the hero increases CTA clicks vs. hiding it behind a Pricing tab."
+    data-variant="A"></script>
+</head>
+<body>
+  <header class="hexa-topbar">
+    <a class="hexa-brand" href="#home">Acme · Pricing Upfront</a>
+    <nav>
+      <a href="#home" data-track="nav-home">Home</a>
+      <a href="#features" data-track="nav-features">Features</a>
+      <a href="#signup" data-track="nav-signup">Sign up</a>
+    </nav>
+    <div class="hexa-topbar-actions">
+      <a class="hexa-text-btn" href="../_shared/dashboard.html?id=example-pricing-upfront" target="_blank" data-track="open-dashboard">View analytics</a>
+    </div>
+  </header>
+
+  <section id="home" data-screen class="hexa-screen">
+    <span class="hexa-tag hexa-tag--brand mb-md">New · Hypothesis A</span>
+    <h1 class="hexa-display mb-md">Project tracking that pays for itself in week one.</h1>
+    <p class="text-body-lg text-fg-neutral-secondary mb-xl">Starts at <strong>$9 / user / month</strong>. 14-day trial, no card needed.</p>
+    <div class="flex gap-sm">
+      <button class="hexa-btn hexa-btn--primary hexa-btn--lg" data-track="cta-hero-primary" onclick="HT.track('hero_cta_clicked');location.hash='#signup'">
+        Start free trial
+        <hexa-icon name="ArrowRightIcon"></hexa-icon>
+      </button>
+      <button class="hexa-btn hexa-btn--secondary hexa-btn--lg" data-track="cta-hero-secondary" onclick="location.hash='#features'">See features</button>
+    </div>
+  </section>
+
+  <section id="features" data-screen class="hexa-screen" hidden>
+    <h2 class="mb-xl">Features</h2>
+    <div class="grid grid-cols-3 gap-lg mb-xl">
+      <article class="hexa-card" data-track="feature-card-tracking">
+        <hexa-icon name="BarChartIcon" size="32"></hexa-icon>
+        <h3>Real-time tracking</h3>
+        <p class="text-body-sm text-fg-neutral-secondary">See exactly where attention goes — clicks, scroll, time per screen.</p>
+      </article>
+      <article class="hexa-card" data-track="feature-card-export">
+        <hexa-icon name="DownloadIcon" size="32"></hexa-icon>
+        <h3>One-click export</h3>
+        <p class="text-body-sm text-fg-neutral-secondary">Download CSV/JSON of every interaction for offline analysis.</p>
+      </article>
+      <article class="hexa-card" data-track="feature-card-privacy">
+        <hexa-icon name="EyeOffIcon" size="32"></hexa-icon>
+        <h3>Privacy-first</h3>
+        <p class="text-body-sm text-fg-neutral-secondary">No PII, no fingerprinting. Anonymous IDs only.</p>
+      </article>
+    </div>
+    <button class="hexa-btn hexa-btn--primary hexa-btn--lg" data-track="cta-features-primary" onclick="location.hash='#signup'">Start free trial</button>
+  </section>
+
+  <section id="signup" data-screen class="hexa-screen" hidden>
+    <h2 class="mb-xl">Start your trial</h2>
+    <form class="flex flex-col gap-md" id="signupForm" data-track="signup-form" style="max-width:420px">
+      <label class="hexa-field">
+        <span class="hexa-label">Name</span>
+        <span class="hexa-input-wrap"><input class="hexa-input" name="name" required /></span>
+      </label>
+      <label class="hexa-field">
+        <span class="hexa-label">Work email</span>
+        <span class="hexa-input-wrap"><input class="hexa-input" type="email" name="email" required /></span>
+      </label>
+      <label class="hexa-field">
+        <span class="hexa-label">Company size</span>
+        <select class="hexa-select" name="size" required>
+          <option value="">Select…</option>
+          <option>1–10</option><option>11–50</option><option>51–200</option><option>200+</option>
+        </select>
+      </label>
+      <button type="submit" class="hexa-btn hexa-btn--primary hexa-btn--lg mt-md" data-track="cta-signup-submit">Start trial</button>
+    </form>
+    <div id="thankYou" class="hexa-empty" hidden>
+      <hexa-illustration name="EmptyBox" size="160"></hexa-illustration>
+      <h3>Thanks!</h3>
+      <p>This is a prototype — no account was created. Your interest was logged.</p>
+    </div>
+  </section>
+
+  <script>
+    function showScreen() {
+      const hash = location.hash || '#home';
+      document.querySelectorAll('[data-screen]').forEach((s) => { s.hidden = '#' + s.id !== hash; });
+      window.scrollTo(0, 0);
+    }
+    addEventListener('hashchange', showScreen);
+    showScreen();
+    document.getElementById('signupForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      HT.track('signup_completed', { source: 'prototype' });
+      document.getElementById('signupForm').hidden = true;
+      document.getElementById('thankYou').hidden = false;
+    });
+  </script>
+</body>
+</html>

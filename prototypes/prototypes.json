@@ -1,0 +1,16 @@
+[
+  {
+    "id": "edi-central-tracker",
+    "name": "EDI Central Tracking",
+    "hypothesis": "Retailers will adopt a self-service EDI order tracker (Order + Item) instead of contacting BEES support.",
+    "createdAt": "2026-05-08",
+    "metric": "≥ 30% of sessions trigger a reprocess on a rejected/alerted order"
+  },
+  {
+    "id": "example-pricing-upfront",
+    "name": "Pricing Upfront — Example",
+    "hypothesis": "Showing the price on the hero increases CTA clicks vs. hiding it behind a Pricing tab.",
+    "createdAt": "2026-05-08",
+    "metric": "≥ 15% of #home views click cta-hero-primary"
+  }
+]

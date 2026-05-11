@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hypothesis Prototypes</title>
+  <link rel="stylesheet" href="_shared/hexa-tokens.css" />
+  <link rel="stylesheet" href="_shared/hexa-components.css" />
+  <script src="_shared/hexa.js" defer></script>
+  <style>
+    .proto-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--hexa-space-md); }
+    .proto-list a { text-decoration: none; color: inherit; }
+    .proto-meta { display: flex; justify-content: space-between; align-items: center; gap: var(--hexa-space-sm); }
+    .proto-empty { padding: var(--hexa-space-xl); text-align: center; color: var(--hexa-fg-neutral-tertiary); }
+  </style>
+</head>
+<body>
+  <header class="hexa-topbar">
+    <a class="hexa-brand" href="./">Hypothesis Prototypes</a>
+    <nav>
+      <a href="./">All prototypes</a>
+      <a href="_shared/gallery.html">Hexa gallery</a>
+    </nav>
+    <div class="hexa-topbar-actions">
+      <span class="hexa-tag hexa-tag--brand">Powered by Hexa</span>
+    </div>
+  </header>
+
+  <main class="hexa-screen">
+    <h1 class="mb-md">Run hypothesis tests with real users.</h1>
+    <p class="text-body-lg text-fg-neutral-secondary mb-xl">Low-code, navigable prototypes built with the Hexa design system, instrumented with usage tracking out of the box.</p>
+
+    <div id="list" class="proto-list"></div>
+
+    <div class="hexa-card mt-xl" style="background:var(--hexa-surface-secondary);border:none">
+      <h3>Add a new prototype</h3>
+      <p class="text-body-md text-fg-neutral-secondary">Ask Cursor: <em>"Scaffold a new prototype to test &lt;your hypothesis&gt;"</em>.<br>The <code>hypothesis-prototype</code> skill will create one under <code>prototypes/&lt;id&gt;/</code> using Hexa primitives.</p>
+      <div class="flex gap-sm mt-md">
+        <a class="hexa-btn hexa-btn--secondary" href="_shared/gallery.html">
+          <hexa-icon name="AppGridIcon"></hexa-icon>
+          Browse Hexa components
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    fetch('prototypes.json').then((r) => r.ok ? r.json() : []).then((items) => {
+      const list = document.getElementById('list');
+      const tracked = new Set(Object.keys(localStorage).filter((k) => k.startsWith('HT_EVENTS_')).map((k) => k.replace('HT_EVENTS_', '')));
+      if (!items.length) {
+        list.innerHTML = '<div class="hexa-empty proto-empty"><h3>No prototypes yet</h3><p class="text-body-sm">Create one with the <code>hypothesis-prototype</code> skill.</p></div>';
+        return;
+      }
+      list.innerHTML = items.map((p) => {
+        const events = tracked.has(p.id) ? JSON.parse(localStorage.getItem('HT_EVENTS_' + p.id) || '[]').length : 0;
+        return `<a href="${p.id}/index.html"><article class="hexa-card hexa-card--clickable">
+          <div class="proto-meta">
+            <span class="hexa-tag">${p.id}</span>
+            <span class="hexa-status-badge ${events ? 'hexa-status-badge--success' : 'hexa-status-badge--info'}">${events} events</span>
+          </div>
+          <h3>${p.name}</h3>
+          <p class="text-body-sm text-fg-neutral-secondary">${p.hypothesis || ''}</p>
+          <div class="proto-meta mt-sm">
+            <span class="text-body-xs text-fg-neutral-tertiary">${p.metric || ''}</span>
+            <a class="hexa-text-btn" href="_shared/dashboard.html?id=${encodeURIComponent(p.id)}" onclick="event.stopPropagation()">Dashboard →</a>
+          </div>
+        </article></a>`;
+      }).join('');
+    });
+  </script>
+</body>
+</html>

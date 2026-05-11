@@ -1,0 +1,162 @@
+{
+  "name": "BEES Business Rules Engine (BRE)",
+  "tagline": "Order validation scope — translate and validate EDI orders inside BEES so retailers get feedback, NR is captured, and processes are standardized across markets.",
+  "status": "In Discovery",
+  "owner": "Your Name",
+  "startDate": "2026-01-01",
+  "targetDate": "2026-12-31",
+  "stakeholders": ["Engineering", "Architecture", "Commercial", "Partners"],
+
+  "currentState": {
+    "today": {
+      "title": "Today",
+      "description": "When a user places an order through BEES or EDI, the zone receives the order and analyses it on the Zone ERP (or local system, e.g. SAP CRM in AR) to check criteria such as minimum value or truckload completion. The order may be approved, modified, fully rejected, or partially rejected — driving NR loss for the company and stockouts for the retailer. If rejected or partially rejected, no feedback is provided to the user, who may not be aware of the criteria applied.",
+      "flow": ["Retailer", "EDI Broker", "Zone ERP", "BEES (report only)"],
+      "pains": [
+        "No feedback to retailer",
+        "Manual reconciliation",
+        "Validations locked in SAP",
+        "BEES has no control of the rules"
+      ]
+    },
+    "target": {
+      "title": "Target state",
+      "description": "BEES becomes the translation and validation layer between the EDI Broker and the Zone ERP. BRE enforces business rules, creates the order in BEES, and surfaces feedback to retailers via Link.",
+      "flow": ["Retailer", "EDI Broker", "BEES (validate + translate)", "Orders", "Zone ERP"],
+      "gains": [
+        "Standardized validations across markets",
+        "Retailer feedback via BEES Link (EDI Tracking Central)",
+        "Higher NR capture from EDI channel",
+        "BEES owns and configures the rules"
+      ]
+    }
+  },
+
+  "scope": {
+    "summary": "What BEES handles inside the highlighted layer: translations (code and file mapping) and validations (business rules). Organized by group, as in the Lucid BPMN.",
+    "businessRules": [
+      {
+        "id": "BRE-ACC-01",
+        "group": "Account",
+        "title": "Match POC identification",
+        "description": "Maps the retailer store/location code to the internal POC ID in BEES. If no match is found, the entire order is rejected.",
+        "countries": ["MX", "AR"]
+      },
+      {
+        "id": "BRE-ACC-02",
+        "group": "Account",
+        "title": "Minimum order quantity",
+        "description": "Checks whether the order total (after item validation) meets the minimum required quantity for the account. Order-level gate — failure rejects the entire order.",
+        "countries": ["MX", "AR"],
+        "impact": "MX: 90.63% of rejections · AR: 33.36%"
+      },
+      {
+        "id": "BRE-ACC-03",
+        "group": "Account",
+        "title": "Maximum order quantity",
+        "description": "Validates the upper limit allowed for the order total. If the quantity exceeds the configured maximum, the order is rejected.",
+        "countries": ["MX"],
+        "impact": "MX: 0.48% of rejections"
+      },
+      {
+        "id": "BRE-ACC-04",
+        "group": "Account",
+        "title": "DC validation",
+        "description": "Validates the distribution center (DC) linked to the POC. If the POC's DC is id 60, the order is treated as remote billing and follows the remote billing flow. (Newly mapped, AR.)",
+        "countries": ["AR"],
+        "tags": ["new"]
+      },
+      {
+        "id": "BRE-ACC-05",
+        "group": "Account",
+        "title": "Tax validation",
+        "description": "Ensure that the correct taxes are applied to the orders according to the POCs in certain regions.",
+        "countries": ["MX"],
+        "tags": ["new"]
+      },
+      {
+        "id": "BRE-ACC-06",
+        "group": "Account",
+        "title": "Multi-order (PO uniqueness)",
+        "description": "Checks the purchase order number sent by the retailer to ensure that there are no duplicate orders.",
+        "countries": ["MX"],
+        "tags": ["new"]
+      },
+      {
+        "id": "BRE-DEL-01",
+        "group": "Delivery",
+        "title": "Delivery Range",
+        "description": "Validates the acceptable window between order date and delivery date. The requested delivery date must be after the PO creation date; otherwise the entire order is rejected. Configurable via country+vendor toggle and a retailer-level blacklist (relaxed path: reject only if the date is in the past).",
+        "countries": ["MX", "AR"]
+      },
+      {
+        "id": "BRE-DEL-02",
+        "group": "Delivery",
+        "title": "Out of delivery frequency",
+        "description": "Checks if the requested delivery date falls on an authorized delivery day for the POC, using the BEES Delivery Window. Orders on non-authorized days are rejected. Blacklisted retailers skip the frequency check entirely.",
+        "countries": ["MX", "AR"],
+        "impact": "MX: 0.01% of rejections"
+      },
+      {
+        "id": "BRE-DEL-03",
+        "group": "Delivery",
+        "title": "Match provider code",
+        "description": "Verifies that the retailer's provider/vendor code matches the internal partner identifier in BEES. Mismatch rejects the order.",
+        "countries": ["MX"]
+      },
+      {
+        "id": "BRE-ITM-01",
+        "group": "Item",
+        "title": "UPC matching",
+        "description": "Maps the retailer's item code (UPC/EAN) to the BEES catalog SKU. Requires a mapping layer to translate retailer item IDs to BEES item IDs at scale. If no match is found, the item is skipped.",
+        "countries": ["MX", "AR"],
+        "impact": "MX: ~1% · AR: ~8% of rejections"
+      },
+      {
+        "id": "BRE-ITM-02",
+        "group": "Item",
+        "title": "Type of package",
+        "description": "Validates whether the package type sent in the order matches the expected packaging in the BEES catalog for that SKU. Failure skips the item.",
+        "countries": ["MX"]
+      },
+      {
+        "id": "BRE-ITM-03",
+        "group": "Item",
+        "title": "Price discrepancy",
+        "description": "Checks if the price in the order matches the current price in BEES. Prevents orders with outdated or incorrect pricing from being processed.",
+        "countries": ["MX", "AR"],
+        "impact": "MX: 3.78% · BR: 16.4%"
+      },
+      {
+        "id": "BRE-ITM-04",
+        "group": "Item",
+        "title": "SKU availability",
+        "description": "Checks whether stock is available for the SKU.",
+        "countries": ["AR"]
+      },
+      {
+        "id": "BRE-ITM-05",
+        "group": "Item",
+        "title": "Shelf life",
+        "description": "Prevents delivery of expired or near-expiry products. (Postponed.)",
+        "countries": ["AR"],
+        "tags": ["postponed"]
+      },
+      {
+        "id": "BRE-ITM-06",
+        "group": "Item",
+        "title": "Forecast comparison",
+        "description": "Aligns orders with expected demand and stock availability. (Postponed.)",
+        "countries": ["AR"],
+        "tags": ["postponed"]
+      },
+      {
+        "id": "BRE-LNK-01",
+        "group": "BEES Link",
+        "title": "EDI Tracking central",
+        "description": "Centralized dashboard in BEES Link providing visibility into EDI order processing status. Retailers can see fully rejected orders and orders processed with item cutoffs — without requiring a new EDI integration.",
+        "countries": ["MX", "AR"]
+      }
+    ]
+  }
+}

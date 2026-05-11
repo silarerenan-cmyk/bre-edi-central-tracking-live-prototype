@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{PROTOTYPE_NAME}}</title>
+  <link rel="stylesheet" href="../_shared/hexa-tokens.css" />
+  <link rel="stylesheet" href="../_shared/hexa-components.css" />
+  <script src="../_shared/hexa.js" defer></script>
+  <script
+    src="../_shared/hypothesis-tracker.js"
+    data-prototype-id="{{PROTOTYPE_ID}}"
+    data-hypothesis="{{HYPOTHESIS}}"
+    data-variant="A"></script>
+</head>
+<body>
+  <header class="hexa-topbar">
+    <a class="hexa-brand" href="#home">{{PROTOTYPE_NAME}}</a>
+    <nav>
+      <a href="#home" data-track="nav-home">Home</a>
+      <a href="#features" data-track="nav-features">Features</a>
+      <a href="#pricing" data-track="nav-pricing">Pricing</a>
+      <a href="#signup" data-track="nav-signup">Sign up</a>
+    </nav>
+    <div class="hexa-topbar-actions">
+      <a class="hexa-text-btn" href="../_shared/dashboard.html?id={{PROTOTYPE_ID}}" target="_blank" data-track="open-dashboard">View analytics</a>
+    </div>
+  </header>
+
+  <!-- Each <section data-screen> behaves like a screen, navigated via #hash links -->
+
+  <section id="home" data-screen class="hexa-screen">
+    <h1 class="hexa-display mb-md">Headline that tests your hypothesis</h1>
+    <p class="text-body-lg text-fg-neutral-secondary mb-xl">A short subhead that frames the value proposition in one line.</p>
+    <div class="flex gap-sm">
+      <button class="hexa-btn hexa-btn--primary hexa-btn--lg" data-track="cta-hero-primary" onclick="location.hash='#signup'">
+        Get started
+        <hexa-icon name="ArrowRightIcon"></hexa-icon>
+      </button>
+      <button class="hexa-btn hexa-btn--secondary hexa-btn--lg" data-track="cta-hero-secondary" onclick="location.hash='#features'">Learn more</button>
+    </div>
+  </section>
+
+  <section id="features" data-screen class="hexa-screen" hidden>
+    <h2 class="mb-xl">Features</h2>
+    <div class="grid grid-cols-3 gap-lg">
+      <article class="hexa-card hexa-card--clickable" data-track="feature-card-1">
+        <hexa-icon name="BarChartIcon" size="32"></hexa-icon>
+        <h3>Feature one</h3>
+        <p class="text-body-sm text-fg-neutral-secondary">Describe the benefit in one sentence.</p>
+      </article>
+      <article class="hexa-card hexa-card--clickable" data-track="feature-card-2">
+        <hexa-icon name="TruckIcon" size="32"></hexa-icon>
+        <h3>Feature two</h3>
+        <p class="text-body-sm text-fg-neutral-secondary">Describe the benefit in one sentence.</p>
+      </article>
+      <article class="hexa-card hexa-card--clickable" data-track="feature-card-3">
+        <hexa-icon name="AwardIcon" size="32"></hexa-icon>
+        <h3>Feature three</h3>
+        <p class="text-body-sm text-fg-neutral-secondary">Describe the benefit in one sentence.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="pricing" data-screen class="hexa-screen" hidden>
+    <h2 class="mb-xl">Pricing</h2>
+    <div class="grid grid-cols-3 gap-lg">
+      <article class="hexa-card" data-track="plan-starter">
+        <span class="hexa-tag">Starter</span>
+        <p class="hexa-display" style="font-size:40px">$9<span class="text-body-sm text-fg-neutral-tertiary"> /mo</span></p>
+        <button class="hexa-btn hexa-btn--secondary" data-track="cta-plan-starter" onclick="HT.track('plan_selected',{plan:'starter'});location.hash='#signup'">Choose Starter</button>
+      </article>
+      <article class="hexa-card hexa-card--brand" data-track="plan-pro">
+        <span class="hexa-tag hexa-tag--brand">Most popular</span>
+        <p class="hexa-display" style="font-size:40px">$29<span class="text-body-sm text-fg-neutral-tertiary"> /mo</span></p>
+        <button class="hexa-btn hexa-btn--primary" data-track="cta-plan-pro" onclick="HT.track('plan_selected',{plan:'pro'});location.hash='#signup'">Choose Pro</button>
+      </article>
+      <article class="hexa-card" data-track="plan-enterprise">
+        <span class="hexa-tag">Enterprise</span>
+        <p class="hexa-display" style="font-size:40px">Custom</p>
+        <button class="hexa-btn hexa-btn--tertiary" data-track="cta-plan-enterprise" onclick="HT.track('plan_selected',{plan:'enterprise'})">Contact sales</button>
+      </article>
+    </div>
+  </section>
+
+  <section id="signup" data-screen class="hexa-screen" hidden>
+    <h2 class="mb-xl">Create your account</h2>
+    <form class="flex flex-col gap-md" id="signupForm" data-track="signup-form" style="max-width:420px">
+      <label class="hexa-field">
+        <span class="hexa-label">Name</span>
+        <span class="hexa-input-wrap"><input class="hexa-input" name="name" required /></span>
+      </label>
+      <label class="hexa-field">
+        <span class="hexa-label">Work email</span>
+        <span class="hexa-input-wrap"><input class="hexa-input" type="email" name="email" required /></span>
+      </label>
+      <label class="hexa-field">
+        <span class="hexa-label">Company size</span>
+        <select class="hexa-select" name="size" required>
+          <option value="">Select…</option>
+          <option>1–10</option><option>11–50</option><option>51–200</option><option>200+</option>
+        </select>
+      </label>
+      <button type="submit" class="hexa-btn hexa-btn--primary hexa-btn--lg mt-md" data-track="cta-signup-submit">Create account</button>
+    </form>
+    <div id="thankYou" class="hexa-empty" hidden>
+      <hexa-illustration name="EmptyBox" size="160"></hexa-illustration>
+      <h3>Thanks!</h3>
+      <p>We logged your interest. (This is a prototype — no account was created.)</p>
+    </div>
+  </section>
+
+  <script>
+    function showScreen() {
+      const hash = location.hash || '#home';
+      document.querySelectorAll('[data-screen]').forEach((s) => { s.hidden = '#' + s.id !== hash; });
+      window.scrollTo(0, 0);
+    }
+    addEventListener('hashchange', showScreen);
+    showScreen();
+
+    document.getElementById('signupForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      HT.track('signup_completed', { source: 'prototype' });
+      document.getElementById('signupForm').hidden = true;
+      document.getElementById('thankYou').hidden = false;
+    });
+  </script>
+</body>
+</html>

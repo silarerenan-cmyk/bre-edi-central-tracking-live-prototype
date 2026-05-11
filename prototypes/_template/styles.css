@@ -1,0 +1,35 @@
+:root{
+  --bg:#fafbfc; --ink:#0e1525; --muted:#5b6373; --line:#e5e9f0;
+  --accent:#3866ff; --accent-ink:#fff; --card:#fff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif}
+.topbar{display:flex;align-items:center;gap:24px;padding:14px 28px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:10}
+.topbar .brand{font-weight:700}
+.topbar nav{display:flex;gap:18px;margin-left:24px}
+.topbar nav a{color:var(--muted);text-decoration:none;font-size:14px}
+.topbar nav a:hover{color:var(--ink)}
+.topbar .dash-link{margin-left:auto;font-size:13px;color:var(--accent);text-decoration:none}
+.screen{max-width:960px;margin:0 auto;padding:64px 24px}
+h1{font-size:44px;line-height:1.1;margin:0 0 12px}
+h2{font-size:30px;margin:0 0 24px}
+h3{font-size:18px;margin:0 0 8px}
+.lede{font-size:18px;color:var(--muted);max-width:60ch;margin:0 0 28px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.btn{font:600 14px/1 inherit;padding:12px 20px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:transform .05s ease}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{filter:brightness(1.05)}
+.btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink)}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px}
+.card p{color:var(--muted);margin:0}
+.card.price{text-align:center}
+.card.price .price-tag{font-size:32px;font-weight:700;margin:8px 0 16px}
+.card.price .price-tag span{font-size:14px;color:var(--muted);font-weight:400}
+.card.price.highlight{border-color:var(--accent);box-shadow:0 8px 30px rgba(56,102,255,.12)}
+.form{display:grid;gap:14px;max-width:420px}
+.form label{display:grid;gap:6px;font-size:13px;color:var(--muted)}
+.form input,.form select{font:14px inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+.form input:focus,.form select:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
