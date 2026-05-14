@@ -40,6 +40,9 @@
 (function () {
   'use strict';
 
+  // Skip tracking when the page is loaded inside the heatmap preview iframe
+  if (location.search.indexOf('ht_preview=1') !== -1) return;
+
   // ---------- config ----------
   const script = document.currentScript || (function () {
     const ss = document.getElementsByTagName('script');
@@ -124,7 +127,16 @@
   }
 
   function visibleText(el) {
-    const t = (el?.innerText || el?.value || el?.alt || '').trim();
+    // aria-label is checked last so visible text always wins; it fills the gap
+    // for icon-only buttons that have no rendered text (e.g. row action buttons).
+    const t = (
+      el?.innerText ||
+      el?.value ||
+      el?.alt ||
+      el?.ariaLabel ||
+      el?.getAttribute?.('aria-label') ||
+      ''
+    ).trim();
     return t.length > 80 ? t.slice(0, 77) + '…' : t;
   }
 
@@ -196,7 +208,14 @@
         tag: target?.tagName?.toLowerCase() || null,
         text: visibleText(target),
         href: target?.href || null,
-        position: { x: e.clientX, y: e.clientY },
+      position: {
+        x: e.clientX, y: e.clientY,                                            // viewport-relative (legacy)
+        px: Math.round(e.pageX), py: Math.round(e.pageY),                      // document-relative (heatmap)
+        vw: window.innerWidth,                                                  // actual viewport width at click time
+        vh: window.innerHeight,                                                 // actual viewport height at click time
+        sw: document.documentElement.scrollWidth,                               // page width at click time
+        sh: document.documentElement.scrollHeight,                              // page height at click time
+      },
         elementBox: { x: Math.round(rect.x), y: Math.round(rect.y), w: Math.round(rect.width), h: Math.round(rect.height) },
         modifier: { ctrl: e.ctrlKey, shift: e.shiftKey, alt: e.altKey, meta: e.metaKey },
       });
@@ -350,6 +369,27 @@
     },
   };
   window.HT = HT;
+
+  // Sync: clear the in-memory buffer when another tab (e.g. the dashboard)
+  // deletes the localStorage key. The 'storage' event fires on cross-tab writes.
+  window.addEventListener('storage', (e) => {
+    if (e.key === STORAGE_KEY && e.newValue === null) {
+      buffer = [];
+      if (cfg.debug) console.log('[HT] buffer cleared via storage event');
+    }
+  });
+
+  // Sync: same-tab clear via BroadcastChannel (localStorage 'storage' events
+  // do NOT fire in the tab that made the change — BroadcastChannel fills that gap).
+  try {
+    const _bc = new BroadcastChannel('HT_CLEAR_' + cfg.prototypeId);
+    _bc.onmessage = (e) => {
+      if (e.data === 'clear') {
+        buffer = [];
+        if (cfg.debug) console.log('[HT] buffer cleared via BroadcastChannel');
+      }
+    };
+  } catch (_) {}
 
   // ---------- bootstrap ----------
   if (document.readyState === 'loading') {
