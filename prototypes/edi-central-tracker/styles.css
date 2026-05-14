@@ -480,7 +480,7 @@ body { background: #FAFAFA; }
 .order-list {
   /* Force a min-width so the grid never collapses below the smallest
      usable layout. Below this width the .order-table scrolls instead. */
-  min-width: 1180px;
+  min-width: 1100px;
 }
 
 .order-row {
@@ -489,14 +489,13 @@ body { background: #FAFAFA; }
      wrapping. Date column fits the full timestamp. PO# and BEES order #
      are predictable monospace numerics. Account and Vendor are fluid. */
   grid-template-columns:
-    32px                       /* select */
-    180px                      /* status pill */
+    210px                      /* status pill — fits "Accepted with alerts" */
     170px                      /* receive date */
-    minmax(220px, 1.6fr)       /* account / POC */
-    minmax(140px, 1fr)         /* vendor */
+    minmax(200px, 1.6fr)       /* account / POC */
+    minmax(120px, 1fr)         /* vendor */
     140px                      /* PO number */
     180px                      /* BEES order number */
-    96px;                      /* row actions (info + reprocess) */
+    48px;                      /* row actions (summary button only) */
   gap: var(--hexa-space-lg);
   align-items: center;
   padding: var(--hexa-space-md) var(--hexa-space-xl);
@@ -562,7 +561,6 @@ body { background: #FAFAFA; }
   color: var(--hexa-fg-neutral-tertiary);
   font-weight: 600;
 }
-.order-row--head .cell-select--head { width: 24px; height: 24px; }
 
 @keyframes hexa-row-flash { from { background: rgba(255, 192, 0, 0.20); } to { background: transparent; } }
 .order-row.flash { animation: hexa-row-flash 1.6s ease-out; }
@@ -869,83 +867,8 @@ body { background: #FAFAFA; }
 .item-row-issue-text { font-size: 13px; line-height: 18px; }
 
 /* =====================================================================
-   BULK ACTIONS BAR — sits above the order list when reprocessable orders
-   are present and/or selections exist. Sticky-feel without actually
-   sticking, so it stays visually anchored to the list.
+   ORDER ROW — inline actions column.
    ===================================================================== */
-.bulk-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--hexa-space-lg);
-  background: var(--hexa-surface-primary);
-  border: 1px solid var(--hexa-border-default);
-  border-radius: var(--hexa-radius-lg);
-  padding: var(--hexa-space-sm) var(--hexa-space-lg);
-  margin-bottom: var(--hexa-space-md);
-  flex-wrap: wrap;
-}
-.bulk-bar[hidden] { display: none; }
-
-.bulk-select-all {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--hexa-space-sm);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--hexa-fg-neutral-primary);
-  cursor: pointer;
-  user-select: none;
-}
-.bulk-select-all input[type="checkbox"] {
-  width: 18px; height: 18px;
-  accent-color: #111111;
-  cursor: pointer;
-}
-.bulk-select-all input[type="checkbox"]:disabled { cursor: not-allowed; }
-
-.bulk-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--hexa-space-md);
-  flex-wrap: wrap;
-}
-.bulk-count {
-  font-size: 13px;
-  color: var(--hexa-fg-neutral-secondary);
-  font-weight: 500;
-}
-
-/* =====================================================================
-   ORDER ROW — extended for checkbox column and inline actions.
-   New grid: [select] [status] [date] [account] [vendor] [po#] [actions]
-   ===================================================================== */
-.order-row.is-selected { background: #FFFAEB; }
-.order-row.is-selected:hover { background: #FFF4D6; }
-
-.cell-select {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px; height: 24px;
-  cursor: pointer;
-}
-.cell-select input[type="checkbox"] {
-  width: 18px; height: 18px;
-  accent-color: #111111;
-  cursor: pointer;
-}
-.cell-select--disabled {
-  cursor: default;
-  /* Render a muted placeholder dash so the checkbox column reads as "intentionally empty" */
-  position: relative;
-}
-.cell-select--disabled::after {
-  content: "";
-  width: 12px; height: 2px;
-  background: var(--hexa-border-default);
-  border-radius: 1px;
-}
 
 .row-actions {
   display: inline-flex;
